@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="utf-8"></head>
+<body>
+<canvas id="can"></canvas>
+<script>
+  const SCREEN_H = 600;
+  const SCREEN_W = 400;
+
+  let barX = 0;
+  let barY = 10;
+  let barW = 80;
+  let barSpeed = 10;
+
+  //条件の異なる複数のバーを一つの関数で処理する
+
+  let can = document.getElementById("can");
+  let con = can.getContext("2d");
+
+  can.width = SCREEN_W;
+  can.height = SCREEN_H;
+  can.style.border = "2px solid grey";
+
+  function moveBar() {
+    con.clearRect(0, 0, SCREEN_W, SCREEN_H);
+
+    if (barX + barW + barSpeed > SCREEN_W || barX + barSpeed < 0) {
+      barSpeed = - barSpeed;
+    }
+    barX += barSpeed;
+
+    con.fillStyle = 'red';
+    con.fillRect(barX, barY, barW, 10);
+  };
+
+  setInterval( moveBar, 100);
+</script>
+</body>
+</html>
