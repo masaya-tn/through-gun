@@ -11,6 +11,8 @@
   let barY = 10;
   let barW = 80;
   let barSpeed = 10;
+  var gunStartx = SCREEN_W / 2 + 5;
+  var gunStarty = SCREEN_H - 40;
 
   //条件の異なる複数のバーを一つの関数で処理する
 
@@ -24,6 +26,9 @@
   function moveBar() {
     con.clearRect(0, 0, SCREEN_W, SCREEN_H);
 
+    dispGunner();
+    bang();
+
     if (barX + barW + barSpeed > SCREEN_W || barX + barSpeed < 0) {
       barSpeed = - barSpeed;
     }
@@ -32,6 +37,19 @@
     con.fillStyle = 'red';
     con.fillRect(barX, barY, barW, 10);
   };
+
+  function dispGunner() {
+    var gunLength = 40;
+    con.fillStyle = "black";
+    con.fillRect(SCREEN_W / 2,SCREEN_H - gunLength , 10, gunLength);
+    
+  }
+  
+  function bang() {
+    con.arc(gunx, y, 7, 0, Math.PI*2);
+    con.fillStyle = "black";
+    con.fill();
+  }
 
   setInterval( moveBar, 100);
 </script>
