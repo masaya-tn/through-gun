@@ -13,7 +13,7 @@
   let barSpeed = 10;
   var gunX = SCREEN_W / 2 + 5;
   var gunY = SCREEN_H - 40;
-  var gunSpeed = 30
+  var gunSpeed = 20
 
   //条件の異なる複数のバーを一つの関数で処理する
 
@@ -28,10 +28,9 @@
     con.clearRect(0, 0, SCREEN_W, SCREEN_H);
 
     dispGunner();
-    bang(gunY);
 
-    gunY -= gunSpeed;
-
+    bang();
+    
     if (barX + barW + barSpeed > SCREEN_W || barX + barSpeed < 0) {
       barSpeed = - barSpeed;
     }
@@ -48,15 +47,24 @@
     
   }
   
-  function bang(gunY) {
+  function bang() {
     con.beginPath();
     con.arc(gunX, gunY, 7, 0, Math.PI*2);
     con.fillStyle = "black";
     con.fill();
     con.closePath();
+   
+    if (gunY - gunSpeed > 0) {
+      gunY -= gunSpeed;
+    }
+   
+    
+
   }
 
-  setInterval( moveBar, 100);
+  
+
+  setInterval( moveBar, 15);
 </script>
 </body>
 </html>
