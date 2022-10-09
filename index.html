@@ -29,6 +29,11 @@
 
     dispGunner();
 
+    if(barX < gunX && gunX < barX + barW && gunY - gunSpeed < barY) {
+      // -----------requestAnimationFrameを使う、setintervalやめるーーーーーーーーーーーーーーーーーーーーーーーーー
+      
+    }
+
     bang();
     
     if (barX + barW + barSpeed > SCREEN_W || barX + barSpeed < 0) {
