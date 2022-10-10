@@ -8,7 +8,7 @@
   const SCREEN_W = 400;
 
   let barX = 0;
-  let barY = 10;
+  let barY = 50;
   let barW = 80;
   let barSpeed = 10;
   var gunX = SCREEN_W / 2 + 5;
@@ -20,6 +20,10 @@
   let can = document.getElementById("can");
   let con = can.getContext("2d");
 
+  let win = false;
+  let over = false;
+  let firing = false;
+
   can.width = SCREEN_W;
   can.height = SCREEN_H;
   can.style.border = "2px solid grey";
@@ -28,13 +32,40 @@
     con.clearRect(0, 0, SCREEN_W, SCREEN_H);
 
     dispGunner();
-
-    if(barX < gunX && gunX < barX + barW && gunY - gunSpeed < barY) {
-      // -----------requestAnimationFrameを使う、setintervalやめるーーーーーーーーーーーーーーーーーーーーーーーーー
-      
+    
+    
+    if(over)
+    {
+      let s="ざんねんでちた";
+      con.font = "40px 'ＭＳ ゴシック'";
+      let w = con.measureText(s).width;
+      let x = SCREEN_W/2 - w/2;
+      let y = SCREEN_H/2 - 20;
+      con.lineWidth = 4;
+      con.fillStyle="blue";
+      con.fillText(s,x,y);
+      return;
     }
 
-    bang();
+    if(win) {
+      let s="You win!!!";
+      con.font = "40px 'ＭＳ ゴシック'";
+      let w = con.measureText(s).width;
+      let x = SCREEN_W/2 - w/2;
+      let y = SCREEN_H/2 - 20;
+      con.lineWidth = 4;
+      con.fillStyle="blue";
+      con.fillText(s,x,y);
+      return;
+    }
+
+    if(firing){
+      bang();
+    }
+    
+    if(barX < gunX && gunX < barX + barW && gunY - gunSpeed < barY) {
+      over = true;
+    }
     
     if (barX + barW + barSpeed > SCREEN_W || barX + barSpeed < 0) {
       barSpeed = - barSpeed;
@@ -55,19 +86,24 @@
   function bang() {
     con.beginPath();
     con.arc(gunX, gunY, 7, 0, Math.PI*2);
-    con.fillStyle = "black";
+    con.fillStyle = "brown";
     con.fill();
     con.closePath();
    
     if (gunY - gunSpeed > 0) {
       gunY -= gunSpeed;
+    } 
+    else {
+      win = true;
     }
-   
-    
-
   }
 
-  
+  document.onkeydown = function(e) {
+    if(e.keyCode == 13) {
+      console.log('ok');
+      firing = true;
+    }
+  }
 
   setInterval( moveBar, 15);
 </script>
